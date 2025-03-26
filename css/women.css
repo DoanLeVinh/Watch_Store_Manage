@@ -1,0 +1,199 @@
+ /* Đảm bảo body không tràn ra ngoài */
+ body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+}
+
+/* Tiêu đề phần banner */
+.banner-title {
+    margin-top: 1.2cm; /* Khoảng cách từ navigation đến tiêu đề */
+    margin-bottom: 0.3cm; /* Khoảng cách từ tiêu đề đến ảnh */
+    text-align: center; /* Căn giữa nội dung */
+    font-size: 1.2em; /* Kích thước chữ nhỏ vừa phải */
+    font-family: 'Roboto', sans-serif; /* Font chữ mảnh mai và sang trọng từ Google Fonts */
+    color: #333; /* Màu chữ đen thanh lịch */
+    font-weight: 400; /* Làm chữ mảnh mai */
+    letter-spacing: 0.5px; /* Tăng khoảng cách giữa các chữ */
+}
+
+/* Container của banner */
+.banner-container {
+    position: relative; /* Để ảnh được căn chỉnh chính xác */
+    overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài */
+    border-radius: 15px; /* Bo góc cho container */
+    margin-left: auto; /* Căn trái phải tự động */
+    margin-right: auto; /* Căn trái phải tự động */
+    width: calc(100% - 3cm); /* Giảm kích thước ảnh, tạo khoảng cách 1.5cm mỗi bên */
+}
+
+/* Căn chỉnh và tạo hiệu ứng cho ảnh */
+.banner-container img {
+    width: 100%; /* Chiếm toàn bộ chiều rộng của container */
+    height: 400px; /* Giảm chiều cao ảnh */
+    object-fit: cover; /* Giữ ảnh theo tỷ lệ nhưng không bị méo */
+    border-radius: 15px; /* Bo góc ảnh */
+}
+
+  /* Container cho bộ lọc */
+  .filter-container {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 2px solid #ddd; /* Đường viền phía trên */
+    background-color: #f9f9f9;
+    display: none; /* Ẩn bộ lọc ban đầu */
+    border-radius: 10px;
+}
+
+/* Tiêu đề của bộ lọc */
+.filter-title {
+    font-size: 1.1em; /* Kích thước chữ vừa phải */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333; /* Màu chữ tối */
+}
+
+/* Các bộ lọc (checkbox, dropdown) */
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Sắp xếp các phần tử */
+    gap: 15px; /* Khoảng cách giữa các phần tử */
+    margin-top: 15px; /* Khoảng cách phía trên các phần tử */
+}
+
+.filter-options select, .filter-options button {
+    padding: 10px;
+    font-size: 0.9em; /* Giảm kích thước chữ cho các lựa chọn */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Đảm bảo các phần tử có chiều rộng như nhau */
+}
+
+.filter-options select:hover, .filter-options button:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng mờ khi hover */
+}
+
+/* Các button như "Bộ lọc", "Lọc theo giá" sẽ có kiểu dáng đặc biệt */
+.filter-options button {
+    background-color: #4CAF50; /* Màu xanh đẹp mắt cho nút Bộ lọc */
+    color: white; /* Màu chữ trắng */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'Arial', sans-serif; /* Font chữ thanh lịch */
+    font-weight: 600; /* Làm chữ dày một chút */
+    border-radius: 25px; /* Bo góc mềm mại */
+    padding: 12px 20px; /* Độ padding làm nút to hơn, dễ click hơn */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-options button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Tăng kích thước nhẹ khi hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tăng độ bóng khi hover */
+}
+
+.filter-options button i {
+    font-size: 1.2em; /* Tăng kích thước icon */
+    color: white; /* Màu sắc icon */
+}
+
+.filter-options button span {
+    font-size: 1em;
+    color: white; /* Màu chữ của nút */
+}
+
+/* Các lựa chọn dropdown */
+select {
+    width: 100%;
+}
+
+/* Các liên kết tìm kiếm */
+.related-search {
+    margin-top: 15px;
+}
+
+.related-search a {
+    margin-right: 10px;
+    font-size: 1em;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.related-search a:hover {
+    text-decoration: underline;
+}
+
+/* Nút "Bộ lọc" */
+#toggleFilterButton {
+    background-color:rgb(68, 70, 72); /* Màu xanh dương pastel */
+    color: white; /* Màu chữ trắng */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Khoảng cách giữa icon và chữ */
+    font-family: 'Arial', sans-serif; /* Font chữ thanh lịch */
+    font-weight: 600; /* Làm chữ dày một chút */
+    border-radius: 30px; /* Bo góc mềm mại */
+    padding: 12px 20px; /* Độ padding làm nút to hơn, dễ click hơn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng đổ */
+    cursor: pointer; /* Con trỏ khi hover là con trỏ tay */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
+    margin-left: 1.3cm; /* Khoảng cách từ lề trái */
+    margin-top: 0.7cm; /* Khoảng cách từ các thành phần phía trên */
+    margin-bottom: 0.7cm; /* Khoảng cách từ các thành phần phía dưới */
+    margin-right: 0.7cm; /* Khoảng cách từ các thành phần phía bên phải */
+}
+
+/* Khi hover vào nút "Bộ lọc" */
+#toggleFilterButton:hover {
+    background-color:rgb(119, 127, 136); /* Thay đổi nền màu khi hover */
+    transform: scale(1.1); /* Phóng to nút lên 10% */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Tăng độ bóng khi hover */
+}
+
+/* Icon trong nút "Bộ lọc" */
+#toggleFilterButton i {
+    font-size: 1.2em; /* Kích thước icon */
+}
+
+/* Chữ trong nút "Bộ lọc" */
+#toggleFilterButton span {
+    font-size: 1em;
+}
+
+
+  /* Phần thiết kế cho nội dung cụ thể */
+  .custom-content {
+    max-width: 1300px;
+    background-color: #fff;
+    padding: 10px 20px; /* Điều chỉnh padding cho khung ôm sát chữ */
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    font-family: 'Playfair Display', serif;
+}
+
+.custom-content p {
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.6;
+    color: #7f8c8d;
+    margin: 0; /* Loại bỏ margin để khung ôm sát chữ */
+    font-weight: 300;
+    text-align: justify;
+}
+
+
+
+
+
+ 

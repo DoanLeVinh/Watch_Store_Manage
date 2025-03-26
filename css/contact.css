@@ -1,0 +1,93 @@
+/* Contact Section Styling */
+.contact-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f8e1d4; /* Hồng nhạt */
+    border-radius: 10px; /* Bo góc cho phần contact */
+    text-align: center;
+}
+
+/* Slogan Styling */
+.slogan {
+    background-color: #ffb6a0; /* Màu nền cam pastel nhẹ */
+    color: #4f4f4f; /* Màu chữ tối nhưng dễ đọc */
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Tiêu đề và mô tả */
+.contact-container h1 {
+    font-size: 2rem;
+    color: #c67c5f; /* Cam nâu nhạt cho tiêu đề */
+    margin-bottom: 10px;
+}
+
+.contact-container p {
+    font-size: 1rem;
+    color: #555; /* Màu xám sáng cho mô tả */
+    margin-bottom: 40px;
+}
+
+/* Contact Options Section */
+.contact-options {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    flex-wrap: wrap; /* Cho phép các phần tử chuyển dòng khi màn hình nhỏ */
+}
+
+/* Contact Option Styling */
+.contact-option {
+    background-color: #ffffff; /* Màu nền trắng tinh khiết */
+    padding: 20px;
+    border-radius: 15px; /* Bo góc cho các mục */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng nhẹ */
+    text-align: center;
+    width: 30%;
+    transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng khi hover */
+    margin-bottom: 20px;
+}
+
+.contact-option:hover {
+    transform: scale(1.05); /* Tăng kích thước khi hover */
+}
+
+.contact-option img {
+    width: 80px; /* Giảm kích thước hình ảnh */
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.contact-option h3 {
+    font-size: 1.5rem;
+    color: #4f4f4f; /* Màu chữ tối nhưng dễ nhìn */
+    margin-bottom: 10px;
+}
+
+.contact-option p {
+    font-size: 1rem;
+    color: #666; /* Màu xám sáng dễ đọc */
+    margin-bottom: 20px;
+}
+
+/* Contact Button Styling */
+.contact-btn {
+    background-color: #e79f95; /* Cam pastel sáng cho nút */
+    color: white; /* Màu chữ trắng */
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.contact-btn:hover {
+    background-color: #ffb6a0; /* Màu cam pastel đậm hơn khi hover */
+}
