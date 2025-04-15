@@ -9,10 +9,12 @@
     <!-- Tải font Roboto từ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <script src="js/script.js" defer></script> <!-- Bạn có thể thêm JavaScript ở đây -->
-    <link href="/Watch_Store_Manage/css/index.css" rel="stylesheet">
+    
     <link href="/Watch_Store_Manage/css/contact.css" rel="stylesheet">
     <link href="/Watch_Store_Manage/css/men.css" rel="stylesheet">
     <link href="/Watch_Store_Manage/css/women.css" rel="stylesheet">
+    <link href="/Watch_Store_Manage/css/jewelry.css" rel="stylesheet">
+    <link href="/Watch_Store_Manage/css/index.css" rel="stylesheet">
     <style>
         body {
             margin: 0;

@@ -194,6 +194,45 @@ select {
 
 
 
+/* Container for the specific part */
+.watch-collection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 50px auto;
+    max-width: 1200px;
+}
+
+.card {
+    width: 30%; /* Adjust width to fit three items per row */
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect for images */
+.card:hover img {
+    transform: scale(1.05); /* Scale image slightly when hovered */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .card {
+        width: 48%; /* Maintain two cards per row on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%; /* One card per row on small screens */
+    }
+}
+
+
 
 
  

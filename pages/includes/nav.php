@@ -1,13 +1,20 @@
 <!-- includes/nav.php -->
 <div class="nav-container">
     <!-- Hàng trên: Giỏ hàng, tìm kiếm, logo -->
+
+<style>
+    .cart-icon{
+        margin: 10px;
+    }
+    
+</style>
     <div class="nav-top">
         <div class="nav-left">
-            <a href="#" class="cart-icon"><i class="fas fa-shopping-bag"></i></a>
             <div class="search-box">
                 <input type="text" placeholder="Tìm sản phẩm hoặc thương hiệu">
                 <i class="fas fa-search"></i>
             </div>
+            <a href="/Watch_Store_Manage/pages/giohang.php" class="cart-icon"><i class="fas fa-shopping-bag"></i></a>
         </div>
         <div class="nav-logo">
             <img src="/Watch_Store_Manage/images/Logo.png" alt="Logo Thương Hiệu">
@@ -32,10 +39,10 @@
                  <li><a href="/Watch_Store_Manage/pages/jewelry.php">TRANG SỨC</a></li>
 
                  <!-- Liên kết đến trang Phụ Kiện -->
-                 <li><a href="/Watch_Store_Manage/pages/index.php">PHỤ KIỆN</a></li>
+                 <li><a href="/Watch_Store_Manage/pages/accessory.php">PHỤ KIỆN</a></li>
 
                  <!-- Liên kết đến trang Tin Tức -->
-                 <li><a href="/Watch_Store_Manage/pages/index.php">TIN TỨC</a></li>
+                 <li><a href="/Watch_Store_Manage/pages/new.php">TIN TỨC</a></li>
 
                  <!-- Liên kết đến trang Liên Hệ -->
                  <li><a href="/Watch_Store_Manage/pages/contact.php">LIÊN HỆ</a></li>
@@ -43,6 +50,7 @@
         </nav>
     </div>
 </div>
+
 
 <!-- Font Awesome Icons -->
 <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>

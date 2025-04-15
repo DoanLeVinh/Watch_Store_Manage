@@ -1,47 +1,41 @@
-<!-- men.php -->
 <?php include('includes/header.php'); ?>  <!-- Kế thừa phần header -->
 <?php include('includes/nav.php'); ?>     <!-- Kế thừa phần nav -->
  <!-- Tải font Roboto từ Google Fonts -->
  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 </head>
 <body>
 
 <section class="banner-title">
-       Trang sức đẹp, thời trang, chính hãng 100%, mẫu mới
+Hoa tai/bông tai đẹp, thời trang, xu hướng, chính hãng 100%
 </section>
 
 <section class="banner-container mx-auto mt-4">
     <!-- Ảnh Banner -->
-    <img alt="Main Banner with watch straps submerged in water" src="/Watch_Store_Manage/images/ts1.png" />
+    <img alt="Main Banner with watch straps submerged in water" src="/Watch_Store_Manage/images/accessory1.png" />
 </section>
 
- <!-- Phần nội dung mà bạn muốn thiết kế -->
- <div class="custom-content">
-        <p>Sở hữu vẻ ngoài yêu thích của bạn với trang sức tinh xảo, hợp xu hướng cùng bộ sưu tập nhẫn, dây chuyền, hoa tai và lắc tay đến từ Saga. Thiết kế sang trọng đem lại vẻ đẹp tự tin cho nàng trong mọi dịp.</p>
+
+
+     <!-- Phần nội dung mà bạn muốn thiết kế -->
+     <div class="custom-content">
+        <p>Chỉ với một món phụ kiện hoa tai đến từ Saga sẽ thổi bùng phong cách cá tính của phái đẹp trong nhiều dịp quan trọng. Đặc biệt toả sáng trong các bữa tiệc tùng nhờ sự xuất hiện của đá Swarovski độ tán sắc cao, chất liệu được phủ Rhodium gia tăng độ bền cho chất liệu cùng kiểu dáng độc đáo chinh phục được cả những nàng khó tính nhất.</p>
     </div>
+
 
     <!-- Phần riêng biệt của giao diện -->
 
     <div class="watch-collection">
         <div class="card">
-            <img src="/Watch_Store_Manage/images/bstts1.png" alt="Stella">
+            <img src="/Watch_Store_Manage/images/accessory2.png" alt="Stella">
         </div>
         <div class="card">
-            <img src="/Watch_Store_Manage/images/bstts2.png" alt="Stella Rectangle">
+            <img src="/Watch_Store_Manage/images/accessory3.png" alt="Stella Rectangle">
         </div>
         <div class="card">
-            <img src="/Watch_Store_Manage/images/bstts3.png" alt="Stella Chance">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstts4.png" alt="MOP Diamonds">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstts5.png" alt="Lunar">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn6.png" alt="Dancing Heart">
+            <img src="/Watch_Store_Manage/images/accessory4.png" alt="Stella Chance">
         </div>
     </div>
 
@@ -141,18 +135,18 @@
 
 <div class="product-list">
     <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga1.png" alt="Saga Long Xing Da Da" />
+        <img src="/Watch_Store_Manage/images/dhn1.png" alt="Saga Long Xing Da Da" />
         <div class="product-info">
-            <h2>Saga Long Xing Da Da 13665-SVPEBK-3LH</h2>
-            <p>Nam - Đồng hồ Rồng Vàng Giới hạn 999 chiếc - Automatic, lộ cơ</p>
-            <span class="price">16.880.000 đ</span>
+            <h2>Saga Lunar 71959-GPGPGP-2 – Mặt số 20x26mm</h2>
+            <p>Cảm hứng Nữ Thần Mặt Trăng – Đính đá</p>
+            <span class="price">8.540.000 ₫</span>
         </div>
     </div>
     <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga2.png" alt="Saga Signature 13703-SVBDK-3" />
+        <img src="/Watch_Store_Manage/images/dhn2.png" alt="Saga Signature 13703-SVBDK-3" />
         <div class="product-info">
-            <h2>Saga Signature 13703-SVBDK-3</h2>
-            <p>Nam - Automatic - Lộ cơ triết lý Âm-Dương trên bề mặt số</p>
+            <h2>Saga Stella 53555-SVMWSV-2</h2>
+            <p>Mặt số 22.5 mm, Khảm xà cừ, dây lắc, đính đá</p>
             <span class="price">12.840.000 đ</span>
         </div>
     </div>
@@ -173,6 +167,5 @@
         </div>
     </div>
 </div>
-
 
 <?php include('includes/footer.php'); ?> <!-- Kế thừa phần footer -->

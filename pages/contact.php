@@ -1,6 +1,9 @@
-<!-- contact.php -->
-<?php include('includes/header.php'); ?>  <!-- Kế thừa header -->
-<?php include('includes/nav.php'); ?>     <!-- Kế thừa navigation -->
+<!-- men.php -->
+<?php include('includes/header.php'); ?>  <!-- Kế thừa phần header -->
+<?php include('includes/nav.php'); ?>     <!-- Kế thừa phần nav -->
+ <!-- Tải font Roboto từ Google Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <!-- Contact Section -->
 <section class="contact-container">
@@ -36,4 +39,5 @@
     </div>
 </section>
 
-<?php include('includes/footer.php'); ?> <!-- Kế thừa footer -->
+
+<?php include('includes/footer.php'); ?> <!-- Kế thừa phần footer -->

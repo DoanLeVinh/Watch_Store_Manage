@@ -24,49 +24,7 @@
         <p>Thiên đường mẫu mã đồng hồ nữ đến từ nhà mốt Saga. Cập nhật xu hướng đồng hồ nữ mới nhất với nhiều phiên bản đính đá, đính kim cương, charm và kiểu dáng mặt số độc đáo. Thể hiện cá tính và phong cách thời trang của bạn chỉ với một món phụ kiện.</p>
     </div>
 
-    <style>
-       
-    </style>
-</head>
-<style>
-        /* Container for the specific part */
-        .watch-collection {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 50px auto;
-            max-width: 1200px;
-        }
 
-        .card {
-            width: 30%; /* Adjust width to fit three items per row */
-        }
-
-        .card img {
-            width: 100%;
-            height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        /* Hover effect for images */
-        .card:hover img {
-            transform: scale(1.05); /* Scale image slightly when hovered */
-        }
-
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .card {
-                width: 48%; /* Maintain two cards per row on tablets */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                width: 100%; /* One card per row on small screens */
-            }
-        }
-    </style>
     <!-- Phần riêng biệt của giao diện -->
 
     <div class="watch-collection">
@@ -89,18 +47,6 @@
             <img src="/Watch_Store_Manage/images/bstn6.png" alt="Dancing Heart">
         </div>
     </div>
-    <div class="watch-collection">
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn7.png" alt="Stella">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn8.png" alt="Stella Rectangle">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn9.png" alt="Stella Chance">
-        </div>
-    </div>
-
 
 <!-- Nút "Bộ lọc" -->
 <button id="toggleFilterButton">

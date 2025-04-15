@@ -1,5 +1,12 @@
 <!-- includes/footer.php -->
 <footer class="footer">
+    <!-- Phần liên hệ với icon mạng xã hội -->
+    <div class="social-links">
+    <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" class="social-icon tiktok"><i class="fab fa-tiktok"></i></a>
+  </div>
   <div class="footer-container">
     <div class="footer-section">
       <h3>CHÍNH SÁCH</h3>
@@ -51,20 +58,17 @@
     <img src="/Watch_Store_Manage/images/footer.png" alt="Logo">
     <span>Đã thông báo Bộ Công Thương</span>
   </div>
-  
-  <!-- Phần liên hệ với icon mạng xã hội -->
-  <div class="social-links">
-    <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
-    <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
-    <a href="#" class="social-icon tiktok"><i class="fab fa-tiktok"></i></a>
-  </div>
+
 </footer>
 
 <style>
+
+    .social-links{
+      margin-bottom: 30px;
+    }
     .footer {
       background-color: #f4f4f4;
-      padding: 40px 0;
+      padding: 20px 0;
       font-family: Arial, sans-serif;
     }
 

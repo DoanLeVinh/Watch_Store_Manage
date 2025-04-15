@@ -1,8 +1,10 @@
-<!-- index.php -->
-<?php include('includes/header.php'); ?>  <!-- Kế thừa header -->
-<?php include('includes/nav.php'); ?>     <!-- Kế thừa navigation -->
+<!-- men.php -->
+<?php include('includes/header.php'); ?>  <!-- Kế thừa phần header -->
+<?php include('includes/nav.php'); ?>     <!-- Kế thừa phần nav -->
+ <!-- Tải font Roboto từ Google Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-<!-- Nội dung trang chính (index) -->
 <main>
     <!-- Main Banner -->
     <section class="banner-container mx-auto mt-4">
@@ -81,7 +83,43 @@
     </div>
 </div>
 
+<div class="product-list">
+    <div class="product-item">
+        <img src="/Watch_Store_Manage/images/men/Saga1.png" alt="Saga Long Xing Da Da" />
+        <div class="product-info">
+            <h2>Saga Long Xing Da Da 13665-SVPEBK-3LH</h2>
+            <p>Nam - Đồng hồ Rồng Vàng Giới hạn 999 chiếc - Automatic, lộ cơ</p>
+            <span class="price">16.880.000 đ</span>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="/Watch_Store_Manage/images/men/Saga2.png" alt="Saga Signature 13703-SVBDK-3" />
+        <div class="product-info">
+            <h2>Saga Signature 13703-SVBDK-3</h2>
+            <p>Nam - Automatic - Lộ cơ triết lý Âm-Dương trên bề mặt số</p>
+            <span class="price">12.840.000 đ</span>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="/Watch_Store_Manage/images/men/Saga3.png" alt="Saga 53198-SVSVBK-2" />
+        <div class="product-info">
+            <h2>Saga 53198-SVSVBK-2</h2>
+            <p>Nam - Kính Cứng - Quartz (Pin) - Giới Hạn 186 Chiếc - Kỷ niệm 30 năm thành lập Đồng Hồ Hải Triều</p>
+            <span class="price">4.600.000 đ</span>
+        </div>
+    </div>
+    <div class="product-item">
+        <img src="/Watch_Store_Manage/images/men/Saga4.png" alt="Saga 13568-SVGEPUg-2" />
+        <div class="product-info">
+            <h2>Saga 13568-SVGEPUg-2</h2>
+            <p>Nam - Kính Sapphire - Quartz (Pin) - Mặt Số 42mm, Chống nước 5ATM</p>
+            <span class="price">9.550.000 đ</span>
+        </div>
+    </div>
+</div>
+
     
 </main>
 
-<?php include('includes/footer.php'); ?> <!-- Kế thừa footer -->
+
+<?php include('includes/footer.php'); ?> <!-- Kế thừa phần footer -->
