@@ -5,8 +5,9 @@
 
 /* Mainbody */
 body {
-    font-family: 'Poppins', sans-serif;
-}
+    font-family: 'Be Vietnam Pro', sans-serif;
+  }
+  
 
 /* Tính năng */
 .features-container {
@@ -15,6 +16,7 @@ body {
     align-items: flex-start;
     margin-top: 4rem;
     gap: 2rem;
+    
 }
 
 .feature {
@@ -44,7 +46,6 @@ body {
     color: #333;
 }
 
-/* css chia bố cục ảnh của BST */
 /* Reset CSS */
 * {
     margin: 0;
@@ -56,8 +57,8 @@ body {
 /* Container chính */
 .collection-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cột tự động sắp xếp */
-    grid-gap: 15px; /* Khoảng cách giữa các item */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Chuyển auto-fill -> auto-fit để phù hợp kích thước */
+    gap: 20px; /* Tên mới của grid-gap (gap) */
     padding: 20px;
     max-width: 1200px;
     margin: auto;
@@ -73,22 +74,30 @@ body {
     display: flex;
     align-items: flex-end;
     padding: 20px;
-    height: 250px;
+    min-height: 250px;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
+    color: white;
+}
+
+/* Hiệu ứng hover */
+.collection-item:hover {
+    transform: scale(1.03);
 }
 
 /* Item lớn */
-.large {
+.collection-item.large {
     grid-row: span 2;
-    height: 520px;
+    grid-column: span 2;
+    min-height: 520px;
 }
 
 /* Item trung bình */
-.medium {
+.collection-item.medium {
     grid-column: span 2;
-    height: 260px;
+    min-height: 260px;
 }
+
 
 /* Hiệu ứng khi hover */
 .collection-item:hover {
@@ -156,48 +165,7 @@ body {
     transform: translateY(-5px);
 }
 
-/* Container của gallery */
-.image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Sắp xếp ảnh vào các cột */
-    gap: 20px; /* Khoảng cách giữa các ảnh */
-    padding: 20px;
-    justify-content: center; /* Căn giữa toàn bộ gallery */
-    align-items: center; /* Căn giữa các ảnh theo chiều dọc */
-    justify-items: center; /* Căn giữa các ảnh trong mỗi cột */
-    max-width: 1200px; /* Đảm bảo không gian rộng tối đa cho gallery */
-    margin: 0 auto; /* Căn giữa gallery trong màn hình */
-}
 
-/* Mỗi item trong gallery */
-.image-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px; /* Bo góc cho ảnh */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Bóng đổ */
-}
-
-/* Căn giữa ảnh và đảm bảo ảnh không bị méo */
-.image-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px; /* Bo góc ảnh */
-}
-
-/* Tiêu đề dưới ảnh */
-.image-title {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%); /* Căn giữa tiêu đề */
-    color: white; /* Màu chữ trắng */
-    padding: 10px;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-transform: uppercase; /* Chữ hoa */
-    letter-spacing: 1px;
-}
 
 .nav-bottom ul li a.active {
     text-decoration: underline;

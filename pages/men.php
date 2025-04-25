@@ -7,6 +7,7 @@
 
 </head>
 <body>
+<?php include("connect.php"); ?>
 
 <section class="banner-title">
     Đồng hồ nam đẹp chính hãng, cao cấp, mẫu mới 2025
@@ -116,41 +117,34 @@
         }
     });
 </script>
-
 <div class="product-list">
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga1.png" alt="Saga Long Xing Da Da" />
-        <div class="product-info">
-            <h2>Saga Long Xing Da Da 13665-SVPEBK-3LH</h2>
-            <p>Nam - Đồng hồ Rồng Vàng Giới hạn 999 chiếc - Automatic, lộ cơ</p>
-            <span class="price">16.880.000 đ</span>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga2.png" alt="Saga Signature 13703-SVBDK-3" />
-        <div class="product-info">
-            <h2>Saga Signature 13703-SVBDK-3</h2>
-            <p>Nam - Automatic - Lộ cơ triết lý Âm-Dương trên bề mặt số</p>
-            <span class="price">12.840.000 đ</span>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga3.png" alt="Saga 53198-SVSVBK-2" />
-        <div class="product-info">
-            <h2>Saga 53198-SVSVBK-2</h2>
-            <p>Nam - Kính Cứng - Quartz (Pin) - Giới Hạn 186 Chiếc - Kỷ niệm 30 năm thành lập Đồng Hồ Hải Triều</p>
-            <span class="price">4.600.000 đ</span>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga4.png" alt="Saga 13568-SVGEPUg-2" />
-        <div class="product-info">
-            <h2>Saga 13568-SVGEPUg-2</h2>
-            <p>Nam - Kính Sapphire - Quartz (Pin) - Mặt Số 42mm, Chống nước 5ATM</p>
-            <span class="price">9.550.000 đ</span>
-        </div>
-    </div>
-</div>
+    <?php
+    $sql = "SELECT * FROM dongho_nam";
+    $result = $link->query($sql);
+
+    while ($row = $result->fetch_assoc()) {
+        $masp = $row['Ma'];
+        $tensp = $row['TenSP'];
+        $kichthuoc = $row['Kichthuoc'];
+        $may = $row['May'];
+        $kinh = $row['Kinh'];
+        $gia = number_format($row['Gia'], 0, ',', '.');
+        $hinhanh = $row['Hinhanh']; // URL của hình ảnh
+    ?>
+        <!-- Link sẽ dẫn đến infor.php với tham số masp -->
+        <a href="http://localhost/Watch_Store_Manage/pages/infor.php?masp=<?php echo $masp; ?>" style="text-decoration: none; color: inherit;">
+            <div class="product-item">
+                <img src="<?php echo $hinhanh; ?>" alt="<?php echo $tensp; ?>" />
+                <div class="product-info">
+                    <h2><?php echo $tensp; ?></h2>
+                    <p><?php echo ucfirst($row['sex']); ?> - <?php echo "$may - $kinh - Kích thước: $kichthuoc"; ?></p>
+                    <span class="price"><?php echo $gia; ?> đ</span>
+                </div>
+            </div>
+        </a>
+    <?php } ?>
+</div> 
+
 
 
 <?php include('includes/footer.php'); ?> <!-- Kế thừa phần footer -->

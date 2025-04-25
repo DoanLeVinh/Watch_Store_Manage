@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  font-family: 'Be Vietnam pro', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+
+
+
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  overflow-y: auto;
+  margin-left: 5px;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.dropdown .submenu {
+  display: none;
+  padding-left: 10px;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}
+
+.actions {
+  margin-bottom: 20px;
+}
+
+.actions input,
+.actions select,
+.actions button {
+  margin-right: 10px;
+  padding: 6px 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  border-radius: 10px;
+}
+
+/* Cấu trúc giao diện */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111; /* Màu nền đen */
+  color: white; /* Màu chữ trắng */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  background-color: #222; /* Màu nền xám đen nhẹ cho container */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 320px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #fff; /* Màu chữ trắng */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #aaa; /* Màu chữ xám nhạt */
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: white;
+  background-color: #333; /* Màu nền input */
+  border: 1px solid #444; /* Màu viền input */
+  border-radius: 4px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #00bcd4; /* Màu viền sáng khi focus */
+  background-color: #555; /* Nền sáng hơn khi focus */
+  outline: none;
+}
+
+.login-btn {
+  padding: 14px;
+  background-color: #00bcd4; /* Màu nút đăng nhập */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-btn:hover {
+  background-color: #0097a7; /* Màu khi hover */
+  transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+.forgot-password, .back-to-login {
+  margin-top: 20px;
+}
+
+.forgot-password a, .back-to-login a {
+  font-size: 14px;
+  color: #00bcd4; /* Màu chữ sáng */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover, .back-to-login a:hover {
+  color: #0097a7; /* Màu khi hover */
+  text-decoration: underline;
+}
+
+p {
+  font-size: 14px;
+  color: #ccc; /* Màu chữ xám nhạt */
+}

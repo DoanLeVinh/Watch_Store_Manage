@@ -7,7 +7,66 @@
 
 </head>
 <body>
+<style>
+    /* Căn giữa các phần tử */
+    .e4 {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép phần tử tràn ra dòng mới khi cần thiết */
+    justify-content: center; /* Căn giữa các phần tử */
+    gap: 20px; /* Khoảng cách giữa các bộ sưu tập */
+    margin: 0 auto; /* Căn giữa container */
+    max-width: 1200px; /* Giới hạn chiều rộng container */
+}
 
+/* Mỗi phần tử trong bộ sưu tập */
+.e5 {
+    width: calc(33.33% - 20px); /* Chia đều mỗi phần tử thành 3 cột, trừ khoảng cách */
+    box-sizing: border-box; /* Bao gồm cả padding và border trong kích thước */
+    border-radius: 10px; /* Bo góc cho các phần tử */
+    overflow: hidden; /* Ẩn các phần bị tràn ra ngoài */
+    text-align: center; /* Căn giữa nội dung trong phần tử */
+    margin-bottom: 20px; /* Khoảng cách dưới mỗi bộ sưu tập */
+}
+
+/* Đảm bảo ảnh trong mỗi phần tử không bị lệch hoặc méo */
+.e5 img {
+    width: 80%; /* Giảm kích thước ảnh xuống 80% */
+    height: auto;
+    display: block;
+    margin: 5px; /* Căn giữa ảnh và giảm khoảng cách giữa các ảnh */
+    border-radius: 10px; /* Bo góc cho ảnh */
+}
+
+/* Tiêu đề trong bộ sưu tập */
+.e2 {
+    text-align: center; /* Căn giữa tiêu đề */
+    text-decoration: none; /* Loại bỏ gạch chân */
+    font-size: 1.2em; /* Kích thước chữ lớn hơn */
+    margin-top: 10px; /* Khoảng cách giữa ảnh và tiêu đề */
+}
+
+/* Loại bỏ gạch chân cho mô tả */
+.e3 {
+    text-align: center;
+    text-decoration: none; /* Loại bỏ gạch chân */
+    font-size: 1em; /* Kích thước chữ nhỏ hơn */
+    color: #555; /* Màu chữ cho mô tả */
+    margin-top: 5px; /* Khoảng cách giữa mô tả và tiêu đề */
+}
+
+/* Điều chỉnh kích thước cho các màn hình nhỏ hơn */
+@media screen and (max-width: 768px) {
+    .e5 {
+        width: calc(50% - 20px); /* 2 cột trên màn hình nhỏ */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .e5 {
+        width: 100%; /* 1 cột trên màn hình nhỏ nhất */
+    }
+}
+</style>
 <section class="banner-title">
     Đồng hồ nữ đẹp chính hãng, cao cấp, mẫu mới 2025
 </section>
@@ -25,28 +84,26 @@
     </div>
 
 
-    <!-- Phần riêng biệt của giao diện -->
-
-    <div class="watch-collection">
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn1.png" alt="Stella">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn2.png" alt="Stella Rectangle">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn3.png" alt="Stella Chance">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn4.png" alt="MOP Diamonds">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn5.png" alt="Lunar">
-        </div>
-        <div class="card">
-            <img src="/Watch_Store_Manage/images/bstn6.png" alt="Dancing Heart">
-        </div>
+    <div class="e4">
+    <div class="e5">
+        <img src="/Watch_Store_Manage/images/bstn1.png" alt="Stella">
     </div>
+    <div class="e5">
+        <img src="/Watch_Store_Manage/images/bstn2.png" alt="Stella Rectangle">
+    </div>
+    <div class="e5">
+        <img src="/Watch_Store_Manage/images/bstn3.png" alt="Stella Chance">
+    </div>
+    <div class="e5">
+        <img src="/Watch_Store_Manage/images/bstn4.png" alt="MOP Diamonds">
+    </div>
+    <div class="e5">
+        <img src="/Watch_Store_Manage/images/bstn5.png" alt="Lunar">
+    </div>
+    <div class="e5">
+        <img src="/Watch_Store_Manage/images/bstn6.png" alt="Dancing Heart">
+    </div>
+</div>
 
 <!-- Nút "Bộ lọc" -->
 <button id="toggleFilterButton">
@@ -142,39 +199,35 @@
     });
 </script>
 
+<?php include("connect.php"); ?>
+
 <div class="product-list">
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/dhn1.png" alt="Saga Long Xing Da Da" />
-        <div class="product-info">
-            <h2>Saga Lunar 71959-GPGPGP-2 – Mặt số 20x26mm</h2>
-            <p>Cảm hứng Nữ Thần Mặt Trăng – Đính đá</p>
-            <span class="price">8.540.000 ₫</span>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/dhn2.png" alt="Saga Signature 13703-SVBDK-3" />
-        <div class="product-info">
-            <h2>Saga Stella 53555-SVMWSV-2</h2>
-            <p>Mặt số 22.5 mm, Khảm xà cừ, dây lắc, đính đá</p>
-            <span class="price">12.840.000 đ</span>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga3.png" alt="Saga 53198-SVSVBK-2" />
-        <div class="product-info">
-            <h2>Saga 53198-SVSVBK-2</h2>
-            <p>Nam - Kính Cứng - Quartz (Pin) - Giới Hạn 186 Chiếc - Kỷ niệm 30 năm thành lập Đồng Hồ Hải Triều</p>
-            <span class="price">4.600.000 đ</span>
-        </div>
-    </div>
-    <div class="product-item">
-        <img src="/Watch_Store_Manage/images/men/Saga4.png" alt="Saga 13568-SVGEPUg-2" />
-        <div class="product-info">
-            <h2>Saga 13568-SVGEPUg-2</h2>
-            <p>Nam - Kính Sapphire - Quartz (Pin) - Mặt Số 42mm, Chống nước 5ATM</p>
-            <span class="price">9.550.000 đ</span>
-        </div>
-    </div>
-</div>
+    <?php
+    $sql = "SELECT * FROM dongho_nu";
+    $result = $link->query($sql);
+
+    while ($row = $result->fetch_assoc()) {
+        $masp = $row['Ma'];
+        $tensp = $row['TenSP'];
+        $kichthuoc = $row['Kichthuoc'];
+        $may = $row['May'];
+        $kinh = $row['Kinh'];
+        $gia = number_format($row['Gia'], 0, ',', '.');
+        $hinhanh = $row['Hinhanh']; // URL của hình ảnh
+    ?>
+        <!-- Link sẽ dẫn đến infor.php với tham số masp -->
+        <a href="http://localhost/Watch_Store_Manage/pages/infor.php?masp=<?php echo $masp; ?>" style="text-decoration: none; color: inherit;">
+            <div class="product-item">
+                <img src="<?php echo $hinhanh; ?>" alt="<?php echo $tensp; ?>" />
+                <div class="product-info">
+                    <h2><?php echo $tensp; ?></h2>
+                    <p><?php echo ucfirst($row['sex']); ?> - <?php echo "$may - $kinh - Kích thước: $kichthuoc"; ?></p>
+                    <span class="price"><?php echo $gia; ?> đ</span>
+                </div>
+            </div>
+        </a>
+    <?php } ?>
+</div> 
+
 
 <?php include('includes/footer.php'); ?> <!-- Kế thừa phần footer -->
