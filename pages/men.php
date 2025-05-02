@@ -7,6 +7,113 @@
 
 </head>
 <body>
+    <style>
+
+:root {
+    --primary-color: #e60023;
+    --text-color: #333;
+    --text-secondary: #555;
+    --text-light: #888;
+    --bg-light: #f9f9f9;
+    --white: #ffffff;
+    --shadow: 0 4px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 8px 20px rgba(0,0,0,0.2);
+    --transition: all 0.3s ease;
+  }
+
+       .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0 50px;
+    padding: 0 20px;
+  }
+
+  .product-item {
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .product-item:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .product-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f2f2f2;
+  }
+
+  .product-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+  }
+
+  .product-info h2 {
+    font-size: 1.1em;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3em;
+    line-height: 1.4;
+  }
+
+  .product-info p {
+    font-size: 0.9em;
+    color: var(--text-light);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3em;
+  }
+
+  .price {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin-top: auto;
+  }
+
+/* Cải thiện độ ưu tiên với ID hoặc class cha nếu cần */
+#product-section .product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  background: #f9f9f9;
+  padding: 40px 20px;
+}
+
+#product-section .product-item {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 250px;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+  
+    </style>
 <?php include("connect.php"); ?>
 
 <section class="banner-title">

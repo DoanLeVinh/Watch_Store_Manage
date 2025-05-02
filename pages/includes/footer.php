@@ -1,197 +1,206 @@
 <?php
-// Kết nối tới cơ sở dữ liệu
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "project-watch";
-
-$link = new mysqli($host, $username, $password, $dbname);
-
-if ($link->connect_error) {
-    die("Connection failed: " . $link->connect_error);
+// Kết nối database với try-catch để bắt lỗi
+try {
+    $link = new mysqli("localhost", "root", "", "project-watch");
+    $link->set_charset("utf8mb4");
+} catch (Exception $e) {
+    die("Kết nối database thất bại: " . $e->getMessage());
 }
 
-// Truy vấn dữ liệu từ các bảng
-$chinhsachQuery = "SELECT * FROM Chinhsach";
-$hethongdailiQuery = "SELECT * FROM Hethongdaili";
-$thongtinQuery = "SELECT * FROM Thongtin";
-$vechungtoiQuery = "SELECT * FROM Vechungtoi";
-$thamkhaoQuery = "SELECT * FROM Thamkhao";
-$socialQuery = "SELECT * FROM social";
+// Hàm lấy dữ liệu từ database
+function fetchData($link, $table) {
+    $result = $link->query("SELECT * FROM $table");
+    return $result ?: [];
+}
 
-// Thực thi các truy vấn
-$chinhsachResult = $link->query($chinhsachQuery);
-$hethongdailiResult = $link->query($hethongdailiQuery);
-$thongtinResult = $link->query($thongtinQuery);
-$vechungtoiResult = $link->query($vechungtoiQuery);
-$thamkhaoResult = $link->query($thamkhaoQuery);
-$socialResult = $link->query($socialQuery);
+// Lấy dữ liệu từ các bảng
+$sections = [
+    'chinhsach' => fetchData($link, 'Chinhsach'),
+    'hethongdaili' => fetchData($link, 'Hethongdaili'),
+    'thongtin' => fetchData($link, 'Thongtin'),
+    'vechungtoi' => fetchData($link, 'Vechungtoi'),
+    'thamkhao' => fetchData($link, 'Thamkhao'),
+    'social' => fetchData($link, 'social')
+];
 ?>
 
 <footer class="footer">
-    <!-- Phần liên hệ với icon mạng xã hội -->
+    <!-- Social links -->
     <div class="social-links">
-    <?php while($social = $socialResult->fetch_assoc()) { ?>
-        <a href="<?php echo $social['link']; ?>" class="social-icon <?php echo strtolower($social['platform']); ?>">
-            <i class="fab fa-<?php echo strtolower($social['platform']); ?>"></i>
-        </a>
-    <?php } ?>
+        <?php foreach ($sections['social'] as $social): ?>
+            <a href="<?= htmlspecialchars($social['link']) ?>" 
+               class="social-icon <?= strtolower($social['title']) ?>" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="fab fa-<?= strtolower($social['title']) ?>"></i>
+            </a>
+        <?php endforeach; ?>
     </div>
 
     <div class="footer-container">
-        <!-- Chính sách -->
-        <div class="footer-section">
-            <h3>CHÍNH SÁCH</h3>
-            <ul>
-                <?php while($chinhsach = $chinhsachResult->fetch_assoc()) { ?>
-                    <li><a href="<?php echo $chinhsach['link']; ?>"><?php echo $chinhsach['title']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-
-        <!-- Hệ thống đại lý -->
-        <div class="footer-section">
-            <h3>HỆ THỐNG ĐẠI LÝ</h3>
-            <ul>
-                <?php while($hethong = $hethongdailiResult->fetch_assoc()) { ?>
-                    <li><a href="<?php echo $hethong['link']; ?>"><?php echo $hethong['city']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-
-        <!-- Thông tin -->
-        <div class="footer-section">
-            <h3>THÔNG TIN</h3>
-            <ul>
-                <?php while($thongtin = $thongtinResult->fetch_assoc()) { ?>
-                    <li><a href="<?php echo $thongtin['link']; ?>"><?php echo $thongtin['title']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-
-        <!-- Về chúng tôi -->
-        <div class="footer-section">
-            <h3>VỀ CHÚNG TÔI</h3>
-            <ul>
-                <?php while($vechungtoi = $vechungtoiResult->fetch_assoc()) { ?>
-                    <li><a href="<?php echo $vechungtoi['link']; ?>"><?php echo $vechungtoi['title']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
-
-        <!-- Tham khảo -->
-        <div class="footer-section">
-            <h3>THAM KHẢO</h3>
-            <ul>
-                <?php while($thamkhao = $thamkhaoResult->fetch_assoc()) { ?>
-                    <li><a href="<?php echo $thamkhao['link']; ?>"><?php echo $thamkhao['title']; ?></a></li>
-                <?php } ?>
-            </ul>
-        </div>
+        <?php 
+        $sectionTitles = [
+            'chinhsach' => 'CHÍNH SÁCH',
+            'hethongdaili' => 'HỆ THỐNG ĐẠI LÝ',
+            'thongtin' => 'THÔNG TIN',
+            'vechungtoi' => 'VỀ CHÚNG TÔI',
+            'thamkhao' => 'THAM KHẢO'
+        ];
+        
+        foreach ($sectionTitles as $key => $title): 
+            if (!empty($sections[$key])):
+        ?>
+            <div class="footer-section">
+                <h3><?= $title ?></h3>
+                <ul>
+                    <?php foreach ($sections[$key] as $item): ?>
+                        <li>
+                            <a href="<?= htmlspecialchars($item['link']) ?>">
+                                <?= htmlspecialchars($item['title']) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php 
+            endif;
+        endforeach; 
+        ?>
     </div>
 
     <div class="footer-bottom">
-        <img src="/Watch_Store_Manage/images/footer.png" alt="Logo">
+        <img src="/Watch_Store_Manage/images/footer.png" alt="Logo công ty" loading="lazy">
         <span>Đã thông báo Bộ Công Thương</span>
     </div>
 </footer>
 
 <style>
+    :root {
+        --footer-bg: #f4f4f4;
+        --footer-text: #333;
+        --footer-hover: #ff5733;
+        --footer-bottom-bg: #fff;
+        --footer-bottom-text: #777;
+        --social-icon-size: 24px;
+    }
+
     .footer {
-        background-color: #f4f4f4;
-        padding: 20px 0;
-        font-family: Arial, sans-serif;
+        background-color: var(--footer-bg);
+        padding: 2rem 0;
+        font-family: 'Roboto', sans-serif;
+        line-height: 1.6;
     }
 
     .footer-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
     }
 
     .footer-section {
-        width: 18%;
-        padding: 0 20px;
+        padding: 0 0.5rem;
     }
 
     .footer-section h3 {
-        font-weight: bold;
-        margin-bottom: 15px;
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        color: var(--footer-text);
     }
 
     .footer-section ul {
-        list-style-type: none;
+        list-style: none;
         padding: 0;
+        margin: 0;
     }
 
-    .footer-section ul li {
-        margin-bottom: 10px;
+    .footer-section li {
+        margin-bottom: 0.75rem;
     }
 
-    .footer-section ul li a {
+    .footer-section a {
+        color: var(--footer-text);
         text-decoration: none;
-        color: #333;
+        transition: color 0.3s ease;
+        font-size: 0.9rem;
     }
 
-    .footer-section ul li a:hover {
+    .footer-section a:hover {
+        color: var(--footer-hover);
         text-decoration: underline;
     }
 
     .footer-bottom {
-        background-color: #fff;
-        padding: 15px;
+        background-color: var(--footer-bottom-bg);
+        padding: 1rem;
         text-align: center;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        width: 100%;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
     }
 
     .footer-bottom img {
-        margin-right: 10px;
+        max-width: 150px;
+        height: auto;
     }
 
     .footer-bottom span {
-        font-size: 14px;
-        color: #777;
+        font-size: 0.8rem;
+        color: var(--footer-bottom-text);
     }
 
-    /* Phần icon mạng xã hội */
     .social-links {
         text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin: 1.5rem 0;
     }
 
     .social-icon {
-        font-size: 24px;
-        margin: 0 10px;
-        text-decoration: none;
-        color: #333;
+        font-size: var(--social-icon-size);
+        margin: 0 0.75rem;
+        color: var(--footer-text);
+        transition: transform 0.3s ease, color 0.3s ease;
+        display: inline-block;
     }
 
     .social-icon:hover {
-        color: #ff5733; /* Thay đổi màu khi hover */
+        transform: translateY(-3px);
     }
 
-    .social-icon.facebook:hover {
-        color: #3b5998; /* Màu Facebook */
+    .facebook:hover { color: #3b5998; }
+    .instagram:hover { color: #e4405f; }
+    .twitter:hover { color: #1da1f2; }
+    .tiktok:hover { color: #000; }
+    .youtube:hover { color: #ff0000; }
+
+    @media (max-width: 768px) {
+        .footer-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icon {
+            margin: 0 0.5rem;
+            font-size: calc(var(--social-icon-size) - 4px);
+        }
     }
 
-    .social-icon.instagram:hover {
-        color: #e4405f; /* Màu Instagram */
-    }
-
-    .social-icon.twitter:hover {
-        color: #1da1f2; /* Màu Twitter */
-    }
-
-    .social-icon.tiktok:hover {
-        color: #000000; /* Màu TikTok */
+    @media (max-width: 480px) {
+        .footer-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .footer-section {
+            text-align: center;
+        }
     }
 </style>
 
-<?php
-$link->close();
-?>
+<?php $link->close(); ?>

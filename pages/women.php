@@ -1,90 +1,166 @@
-<?php include('includes/header.php'); ?>  <!-- Kế thừa phần header -->
+<?php include('includes/header.php'); ?> <!-- Kế thừa phần header -->
 <?php include('includes/nav.php'); ?>     <!-- Kế thừa phần nav -->
- <!-- Tải font Roboto từ Google Fonts -->
- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- Tải font từ Google Fonts và Font Awesome -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 </head>
 <body>
 <style>
-    /* Căn giữa các phần tử */
-    .e4 {
+  :root {
+    --primary-color: #e60023;
+    --text-color: #333;
+    --text-secondary: #555;
+    --text-light: #888;
+    --bg-light: #f9f9f9;
+    --white: #ffffff;
+    --shadow: 0 4px 10px rgba(0,0,0,0.1);
+    --shadow-hover: 0 8px 20px rgba(0,0,0,0.2);
+    --transition: all 0.3s ease;
+  }
+  /* ------------------- Các lớp CSS cho sản phẩm ------------------- */
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0 50px;
+    padding: 0 20px;
+  }
+
+  .product-item {
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
     display: flex;
-    flex-wrap: wrap; /* Cho phép phần tử tràn ra dòng mới khi cần thiết */
-    justify-content: center; /* Căn giữa các phần tử */
-    gap: 20px; /* Khoảng cách giữa các bộ sưu tập */
-    margin: 0 auto; /* Căn giữa container */
-    max-width: 1200px; /* Giới hạn chiều rộng container */
-}
+    flex-direction: column;
+    transition: var(--transition);
+    position: relative;
+  }
 
-/* Mỗi phần tử trong bộ sưu tập */
-.e5 {
-    width: calc(33.33% - 20px); /* Chia đều mỗi phần tử thành 3 cột, trừ khoảng cách */
-    box-sizing: border-box; /* Bao gồm cả padding và border trong kích thước */
-    border-radius: 10px; /* Bo góc cho các phần tử */
-    overflow: hidden; /* Ẩn các phần bị tràn ra ngoài */
-    text-align: center; /* Căn giữa nội dung trong phần tử */
-    margin-bottom: 20px; /* Khoảng cách dưới mỗi bộ sưu tập */
-}
+  .product-item:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+  }
 
-/* Đảm bảo ảnh trong mỗi phần tử không bị lệch hoặc méo */
-.e5 img {
-    width: 80%; /* Giảm kích thước ảnh xuống 80% */
+  .product-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f2f2f2;
+  }
+
+  .product-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+  }
+
+  .product-info h2 {
+    font-size: 1.1em;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3em;
+    line-height: 1.4;
+  }
+
+  .product-info p {
+    font-size: 0.9em;
+    color: var(--text-light);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3em;
+  }
+
+  .price {
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin-top: auto;
+  }
+
+  /* ------------------- Các phần tử bộ sưu tập ------------------- */
+  .e4 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
+  .e5 {
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .e5 img {
+    width: 80%;
     height: auto;
     display: block;
-    margin: 5px; /* Căn giữa ảnh và giảm khoảng cách giữa các ảnh */
-    border-radius: 10px; /* Bo góc cho ảnh */
-}
+    margin: 5px;
+    border-radius: 10px;
+  }
 
-/* Tiêu đề trong bộ sưu tập */
-.e2 {
-    text-align: center; /* Căn giữa tiêu đề */
-    text-decoration: none; /* Loại bỏ gạch chân */
-    font-size: 1.2em; /* Kích thước chữ lớn hơn */
-    margin-top: 10px; /* Khoảng cách giữa ảnh và tiêu đề */
-}
-
-/* Loại bỏ gạch chân cho mô tả */
-.e3 {
+  .e2 {
     text-align: center;
-    text-decoration: none; /* Loại bỏ gạch chân */
-    font-size: 1em; /* Kích thước chữ nhỏ hơn */
-    color: #555; /* Màu chữ cho mô tả */
-    margin-top: 5px; /* Khoảng cách giữa mô tả và tiêu đề */
-}
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-top: 10px;
+  }
 
-/* Điều chỉnh kích thước cho các màn hình nhỏ hơn */
-@media screen and (max-width: 768px) {
-    .e5 {
-        width: calc(50% - 20px); /* 2 cột trên màn hình nhỏ */
-    }
-}
+  .e3 {
+    text-align: center;
+    text-decoration: none;
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
+  }
 
-@media screen and (max-width: 480px) {
+  /* Responsive cho màn hình nhỏ hơn */
+  @media screen and (max-width: 768px) {
     .e5 {
-        width: 100%; /* 1 cột trên màn hình nhỏ nhất */
+      width: calc(50% - 20px); /* 2 cột trên màn hình nhỏ */
     }
-}
+  }
+
+  @media screen and (max-width: 480px) {
+    .e5 {
+      width: 100%; /* 1 cột trên màn hình nhỏ nhất */
+    }
+  }
 </style>
+
+<!-- Banner tiêu đề -->
 <section class="banner-title">
     Đồng hồ nữ đẹp chính hãng, cao cấp, mẫu mới 2025
 </section>
 
+<!-- Banner hình ảnh -->
 <section class="banner-container mx-auto mt-4">
-    <!-- Ảnh Banner -->
     <img alt="Main Banner with watch straps submerged in water" src="/Watch_Store_Manage/images/women1.png" />
 </section>
 
+<!-- Phần nội dung mô tả -->
+<div class="custom-content">
+    <p>Thiên đường mẫu mã đồng hồ nữ đến từ nhà mốt Saga. Cập nhật xu hướng đồng hồ nữ mới nhất với nhiều phiên bản đính đá, đính kim cương, charm và kiểu dáng mặt số độc đáo. Thể hiện cá tính và phong cách thời trang của bạn chỉ với một món phụ kiện.</p>
+</div>
 
-
-     <!-- Phần nội dung mà bạn muốn thiết kế -->
-     <div class="custom-content">
-        <p>Thiên đường mẫu mã đồng hồ nữ đến từ nhà mốt Saga. Cập nhật xu hướng đồng hồ nữ mới nhất với nhiều phiên bản đính đá, đính kim cương, charm và kiểu dáng mặt số độc đáo. Thể hiện cá tính và phong cách thời trang của bạn chỉ với một món phụ kiện.</p>
-    </div>
-
-
-    <div class="e4">
+<!-- Bộ sưu tập đồng hồ -->
+<div class="e4">
     <div class="e5">
         <img src="/Watch_Store_Manage/images/bstn1.png" alt="Stella">
     </div>
@@ -120,7 +196,7 @@
     </div>
 
     <div class="filter-options">
-        <!-- Bộ lọc với các dropdowns và buttons -->
+        <!-- Các dropdowns cho bộ lọc -->
         <select>
             <option>LOẠI THEO GIÁ</option>
             <option>Giá cao đến thấp</option>
@@ -182,15 +258,12 @@
     </div>
 </section>
 
-
 <script>
-    // Lấy phần tử nút và bộ lọc
+    // Hiển thị và ẩn bộ lọc khi nhấn nút
     const toggleButton = document.getElementById('toggleFilterButton');
     const filterContainer = document.getElementById('filterContainer');
 
-    // Lắng nghe sự kiện click trên nút "Bộ lọc"
     toggleButton.addEventListener('click', () => {
-        // Toggle trạng thái hiển thị của bộ lọc
         if (filterContainer.style.display === 'none' || filterContainer.style.display === '') {
             filterContainer.style.display = 'block'; // Hiển thị bộ lọc
         } else {
@@ -201,6 +274,7 @@
 
 <?php include("connect.php"); ?>
 
+<!-- Danh sách sản phẩm -->
 <div class="product-list">
     <?php
     $sql = "SELECT * FROM dongho_nu";
@@ -215,7 +289,6 @@
         $gia = number_format($row['Gia'], 0, ',', '.');
         $hinhanh = $row['Hinhanh']; // URL của hình ảnh
     ?>
-        <!-- Link sẽ dẫn đến infor.php với tham số masp -->
         <a href="http://localhost/Watch_Store_Manage/pages/infor.php?masp=<?php echo $masp; ?>" style="text-decoration: none; color: inherit;">
             <div class="product-item">
                 <img src="<?php echo $hinhanh; ?>" alt="<?php echo $tensp; ?>" />
@@ -227,7 +300,6 @@
             </div>
         </a>
     <?php } ?>
-</div> 
-
+</div>
 
 <?php include('includes/footer.php'); ?> <!-- Kế thừa phần footer -->

@@ -1,349 +1,497 @@
 <?php
-include('config.php');  // Kết nối với database
+session_start();
+if (!isset($_SESSION['admin_logged_in'])) {
+    header("Location: DN.php");
+    exit();
+}
+
+include('config.php');
 include('oriented/header.php');
-// Kiểm tra yêu cầu POST (Thêm, Cập nhật hoặc Xóa Navigation)
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Thêm mới Navigation
-    if (isset($_POST['action']) && $_POST['action'] == 'add') {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $url = $_POST['url'];
 
-        // Kiểm tra nếu id, name và url không rỗng
-        if (empty($id) || empty($name) || empty($url)) {
-            echo json_encode(['success' => false, 'message' => 'ID, Tên và URL không được để trống']);
-            exit;
-        }
-
-        $query = "INSERT INTO navigation (id, name, url) VALUES (?, ?, ?)";
-        $stmt = $link->prepare($query);
-        $stmt->bind_param('iss', $id, $name, $url);
-
+// Xử lý thêm mới
+if (isset($_POST['add_item'])) {
+    $name = $_POST['name'];
+    $url = $_POST['url'];
+    
+    $stmt = $link->prepare("INSERT INTO navigation (name, url) VALUES (?, ?)");
+    if ($stmt) {
+        $stmt->bind_param("ss", $name, $url);
         if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Đã thêm navigation mới.']);
+            $message = "Thêm mục navigation mới thành công!";
         } else {
-            echo json_encode(['success' => false, 'message' => 'Có lỗi khi thêm navigation.']);
+            $error = "Lỗi: " . $stmt->error;
         }
-        exit;
-    }
-
-    // Cập nhật Navigation
-    if (isset($_POST['action']) && $_POST['action'] == 'update') {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $url = $_POST['url'];
-
-        // Kiểm tra nếu name và url không rỗng
-        if (empty($name) || empty($url)) {
-            echo json_encode(['success' => false, 'message' => 'Tên và URL không được để trống']);
-            exit;
-        }
-
-        $query = "UPDATE navigation SET name = ?, url = ? WHERE id = ?";
-        $stmt = $link->prepare($query);
-        $stmt->bind_param('ssi', $name, $url, $id);
-
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Đã cập nhật navigation.']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Có lỗi khi cập nhật navigation.']);
-        }
-        exit;
-    }
-
-    // Xóa Navigation
-    if (isset($_POST['action']) && $_POST['action'] == 'delete') {
-        $id = $_POST['id'];
-
-        // Kiểm tra nếu id không rỗng
-        if (empty($id)) {
-            echo json_encode(['success' => false, 'message' => 'ID không hợp lệ']);
-            exit;
-        }
-
-        $query = "DELETE FROM navigation WHERE id = ?";
-        $stmt = $link->prepare($query);
-        $stmt->bind_param('i', $id);
-
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true, 'message' => 'Đã xóa navigation.']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Có lỗi khi xóa navigation.']);
-        }
-        exit;
+        $stmt->close();
+    } else {
+        $error = "Lỗi prepare: " . $link->error;
     }
 }
-?>
 
-<title>Quản lý Navigation</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    header {
-        background-color: #222;
-        color: white;
-        text-align: center;
-        padding: 20px 0;
-    }
-
-    .container {
-        width: 80%;
-        margin: 40px auto;
-        background-color: white;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
-
-    .section {
-        margin-bottom: 40px;
-        padding: 20px;
-        border-radius: 8px;
-        background-color: #fff;
-    }
-
-    .section h2 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #ccc;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    table th, table td {
-        padding: 12px;
-        text-align: left;
-        border: 1px solid #ddd;
-    }
-
-    table th {
-        background-color: #f4f4f4;
-    }
-
-    .btn-container {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        background-color: #333;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 1em;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-        background-color: #555;
-    }
-
-    .btn-save {
-        background-color: #28a745;
-    }
-
-    .btn-save:hover {
-        background-color: #218838;
-    }
-
-    .btn-edit {
-        background-color: #ffc107;
-    }
-
-    .btn-edit:hover {
-        background-color: #e0a800;
-    }
-
-    .btn-delete {
-        background-color: #dc3545;
-    }
-
-    .btn-delete:hover {
-        background-color: #c82333;
-    }
-
-    .form-container {
-        margin-top: 20px;
-        display: flex;
-        gap: 20px;
-        justify-content: flex-start;
-    }
-
-    .form-container input {
-        padding: 10px;
-        font-size: 16px;
-        width: 300px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-    }
-
-    .form-container button {
-        padding: 10px 20px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .form-container button:hover {
-        background-color: #218838;
-    }
-</style>
-
-<div class="container">
-    <!-- Quản lý Navigation -->
-    <div class="section">
-        <h2>Quản lý Navigation</h2>
-
-        <!-- Thêm Navigation Mới -->
-        <h3>Thêm Navigation Mới</h3>
-        <div class="form-container">
-            <input type="text" id="newNavId" placeholder="Nhập ID Navigation" />
-            <input type="text" id="newNavName" placeholder="Nhập Tên Navigation" />
-            <input type="text" id="newNavUrl" placeholder="Nhập URL" />
-            <button class="btn btn-save" onclick="addNewNavigation()">Thêm Navigation</button>
-        </div>
-
-        <!-- Danh sách Navigation -->
-        <table id="navigation-table">
-            <tr>
-                <th>ID</th>
-                <th>Tên</th>
-                <th>URL</th>
-                <th>Thao tác</th>
-            </tr>
-            <?php
-                $query = "SELECT * FROM navigation";  // Lấy dữ liệu từ bảng navigation
-                $result = $link->query($query);
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr id='nav-" . $row['id'] . "'>
-                            <td class='editable' data-id='" . $row['id'] . "'>" . $row['id'] . "</td>
-                            <td class='editable' data-id='" . $row['id'] . "'>" . $row['name'] . "</td>
-                            <td class='editable' data-id='" . $row['id'] . "'>" . $row['url'] . "</td>
-                            <td>
-                                <button class='btn btn-edit' onclick='editNavigation(" . $row['id'] . ")'>Sửa</button>
-                                <button class='btn btn-delete' onclick='deleteNavigation(" . $row['id'] . ")'>Xóa</button>
-                            </td>
-                          </tr>";
-                }
-            ?>
-        </table>
-    </div>
-</div>
-
-<script>
-    // Thêm Navigation mới
-    function addNewNavigation() {
-        const id = document.getElementById('newNavId').value;
-        const name = document.getElementById('newNavName').value;
-        const url = document.getElementById('newNavUrl').value;
-
-        if (id.trim() === "" || name.trim() === "" || url.trim() === "") {
-            alert("Vui lòng nhập ID, Tên và URL.");
-            return;
+// Xử lý cập nhật
+if (isset($_POST['update_item'])) {
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $url = $_POST['url'];
+    
+    $stmt = $link->prepare("UPDATE navigation SET name=?, url=? WHERE id=?");
+    if ($stmt) {
+        $stmt->bind_param("ssi", $name, $url, $id);
+        if ($stmt->execute()) {
+            $message = "Cập nhật navigation thành công!";
+        } else {
+            $error = "Lỗi: " . $stmt->error;
         }
+        $stmt->close();
+    } else {
+        $error = "Lỗi prepare: " . $link->error;
+    }
+}
 
-        // Gửi dữ liệu lên server để thêm vào database
-        const formData = new FormData();
-        formData.append('action', 'add');
-        formData.append('id', id);
-        formData.append('name', name);
-        formData.append('url', url);
+// Xử lý xóa
+if (isset($_POST['delete_item'])) {
+    $id = $_POST['id'];
+    
+    $stmt = $link->prepare("DELETE FROM navigation WHERE id=?");
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            $message = "Xóa navigation thành công!";
+        } else {
+            $error = "Lỗi: " . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        $error = "Lỗi prepare: " . $link->error;
+    }
+}
 
-        fetch('QL-nav.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Đã thêm navigation mới.");
-                location.reload();  // Tải lại trang để cập nhật danh sách
+// Xử lý xóa nhiều
+if (isset($_POST['delete_selected'])) {
+    $ids = $_POST['ids'] ?? [];
+    
+    if (!empty($ids)) {
+        $placeholders = implode(',', array_fill(0, count($ids), '?'));
+        $types = str_repeat('i', count($ids));
+        $sql = "DELETE FROM navigation WHERE id IN ($placeholders)";
+        
+        $stmt = $link->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param($types, ...$ids);
+            if ($stmt->execute()) {
+                $message = "Đã xóa " . count($ids) . " mục navigation thành công!";
             } else {
-                alert(data.message || "Có lỗi khi thêm navigation.");
+                $error = "Lỗi: " . $stmt->error;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert("Đã có lỗi xảy ra khi thêm navigation.");
-        });
-    }
-
-    // Chỉnh sửa navigation
-    function editNavigation(id) {
-        const name = prompt("Nhập tên mới cho Navigation:");
-        const url = prompt("Nhập URL mới cho Navigation:");
-
-        if (name && url) {
-            const formData = new FormData();
-            formData.append('action', 'update');
-            formData.append('id', id);
-            formData.append('name', name);
-            formData.append('url', url);
-
-            fetch('QL-nav.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    location.reload();  // Tải lại trang để cập nhật danh sách
-                } else {
-                    alert(data.message || "Có lỗi khi cập nhật navigation.");
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Đã có lỗi xảy ra khi cập nhật navigation.");
-            });
+            $stmt->close();
+        } else {
+            $error = "Lỗi prepare: " . $link->error;
         }
     }
+}
 
-    // Xóa navigation
-    function deleteNavigation(id) {
-        if (confirm("Bạn có chắc chắn muốn xóa navigation này?")) {
-            const formData = new FormData();
-            formData.append('action', 'delete');
-            formData.append('id', id);
+// Lấy dữ liệu từ bảng
+$navItems = [];
+$result = $link->query("SELECT * FROM navigation ORDER BY id");
+if ($result) {
+    $navItems = $result->fetch_all(MYSQLI_ASSOC);
+    $result->free();
+} else {
+    $error = "Lỗi truy vấn: " . $link->error;
+}
 
-            fetch('QL-nav.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    document.getElementById('nav-' + id).remove();  // Xóa dòng tương ứng trong bảng
-                } else {
-                    alert(data.message || "Có lỗi khi xóa navigation.");
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Đã có lỗi xảy ra khi xóa navigation.");
+// Đóng kết nối (sẽ thực hiện ở cuối file)
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Navigation</title>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #333333;
+            --light-color: #f5f5f5;
+            --white-color: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--white-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: var(--light-color);
+            border-radius: 4px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            font-weight: 500;
+        }
+        
+        tr:hover {
+            background-color: var(--light-color);
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-danger {
+            background-color: #d32f2f;
+            color: var(--white-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #b71c1c;
+        }
+        
+        .btn-success {
+            background-color: #388e3c;
+            color: var(--white-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #2e7d32;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: var(--white-color);
+            margin: 5% auto;
+            padding: 25px;
+            width: 50%;
+            max-width: 600px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .close {
+            color: var(--secondary-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .alert-danger {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
+        
+        .checkbox-cell input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .modal-content {
+                width: 90%;
+                margin: 10% auto;
+            }
+            
+            .action-buttons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QUẢN LÝ NAVIGATION</h1>
+        
+        <?php if (isset($message)): ?>
+            <div class="alert alert-success"><?= htmlspecialchars($message) ?></div>
+        <?php endif; ?>
+        
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        
+        <form method="post" id="navForm">
+            <div class="action-bar">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success" onclick="openAddModal()">
+                        Thêm mới
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="editSelected()">
+                        Sửa
+                    </button>
+                    <button type="submit" name="delete_selected" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa các mục đã chọn?')">
+                        Xóa
+                    </button>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th class="checkbox-cell">
+                            <input type="checkbox" id="selectAll" onclick="toggleAllCheckboxes()">
+                        </th>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($navItems as $item): ?>
+                        <tr data-id="<?= htmlspecialchars($item['id']) ?>">
+                            <td class="checkbox-cell">
+                                <input type="checkbox" name="ids[]" value="<?= $item['id'] ?>">
+                            </td>
+                            <td><?= htmlspecialchars($item['id']) ?></td>
+                            <td><?= htmlspecialchars($item['name']) ?></td>
+                            <td><?= htmlspecialchars($item['url']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    
+    <!-- Modal Thêm mới -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addModal')">&times;</span>
+            <h2>Thêm mục Navigation mới</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="addName">Tên menu</label>
+                    <input type="text" id="addName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="addUrl">URL</label>
+                    <input type="text" id="addUrl" name="url" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addModal')">Đóng</button>
+                    <button type="submit" name="add_item" class="btn btn-success">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Chỉnh sửa -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editModal')">&times;</span>
+            <h2>Chỉnh sửa Navigation</h2>
+            <form method="post">
+                <input type="hidden" name="id" id="editId">
+                <div class="form-group">
+                    <label for="editName">Tên menu</label>
+                    <input type="text" id="editName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editUrl">URL</label>
+                    <input type="text" id="editUrl" name="url" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('editModal')">Đóng</button>
+                    <button type="submit" name="update_item" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Chọn/bỏ chọn tất cả
+        function toggleAllCheckboxes() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('input[name="ids[]"]');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
             });
         }
-    }
-</script>
-
+        
+        // Mở modal thêm mới
+        function openAddModal() {
+            document.getElementById('addModal').style.display = 'block';
+            document.getElementById('addName').value = '';
+            document.getElementById('addUrl').value = '';
+            document.getElementById('addName').focus();
+        }
+        
+        // Chỉnh sửa mục đã chọn
+        function editSelected() {
+            const form = document.getElementById('navForm');
+            const checkboxes = form.querySelectorAll('input[name="ids[]"]:checked');
+            
+            if (checkboxes.length === 0) {
+                alert('Vui lòng chọn ít nhất 1 mục để sửa');
+                return;
+            }
+            
+            if (checkboxes.length > 1) {
+                alert('Vui lòng chỉ chọn 1 mục để sửa');
+                return;
+            }
+            
+            const row = checkboxes[0].closest('tr');
+            const id = checkboxes[0].value;
+            const name = row.cells[2].textContent;
+            const url = row.cells[3].textContent;
+            
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = name.trim();
+            document.getElementById('editUrl').value = url.trim();
+            document.getElementById('editModal').style.display = 'block';
+        }
+        
+        // Đóng modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Đóng modal khi click bên ngoài
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+        }
+    </script>
 </body>
 </html>
+<?php
+// Đóng kết nối database
+$link->close();
+?>

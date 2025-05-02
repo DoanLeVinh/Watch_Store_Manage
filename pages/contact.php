@@ -145,4 +145,17 @@
   </div>
 </section>
 
+<!-- Chat Widget -->
+<div id="chat-widget">
+    <div id="chat-messages">
+        <!-- Tin nhắn sẽ hiển thị ở đây -->
+    </div>
+    <input type="text" id="chat-input" placeholder="Nhập câu hỏi...">
+    <button id="send-btn">Gửi</button>
+</div>
+
+<!-- Nhúng script JavaScript -->
+<script src="js/chatbot-ui.js"></script>
+
+
 <?php include('includes/footer.php'); ?> 
